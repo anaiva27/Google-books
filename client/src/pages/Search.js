@@ -34,10 +34,10 @@ export default function Search() {
     setuserInput(userInput);
   }
 
-  function handleSaveBook(event) {
-    event.preventDefault();
-    for (let i = 0; i < bookSearch.length; i++) {
-      if (event.target.key === bookSearch[i].key) {
+  function handleSaveBook(id) {
+       for (let i = 0; i < bookSearch.length; i++) {
+      if (id === bookSearch[i].id) {
+        console.log( bookSearch[i].id)
         API.saveBook({
           title: bookSearch[i].volumeInfo.title,
           authors: bookSearch[i].volumeInfo.authors,
@@ -71,7 +71,7 @@ export default function Search() {
               googleId={search.id}
               handleSaveBook={handleSaveBook}
             />
-            {/* <button type="Save" onClick={handleSaveBook}>
+            {/* <button type="Save" id={search.id} onClick={handleSaveBook}>
               Submit
             </button> */}
           </>
