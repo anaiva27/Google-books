@@ -6,16 +6,17 @@ const Card = (props) => {
       <div className="card mt-4">
         <div className="card-body">
           <div>{props.title}</div>
-
+          <button type="Save" onClick={props.handleSaveBook}>
+              Save
+            </button>
           <div>{props.author}</div>
           {/* <div>
             {props.author.map((author) => (
               <span> {author}, </span>
             ))}
           </div> */}
-  
+            {/* <div className="hidden">{props.googleId}</div> */}
           <div>
-          
             <a href={props.link} target="_blank" rel="noreferrer">
               View
             </a>

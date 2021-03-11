@@ -15,42 +15,66 @@ export default function Search() {
   // }
 
   useEffect(() => {
-  
-      // const userInput = document.querySelector("#search").value.trim();
-      let URL = `https://www.googleapis.com/books/v1/volumes?q=${userInput}&key=${API_KEY}`;
-      API.googleSearch(URL)
-        .then((res) => {
-          console.log("*******", res);
-          setBookSearch(res.data.items);
-          //empty input
-          document.querySelector("#search").value = "";
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    
+    let URL = `https://www.googleapis.com/books/v1/volumes?q=${userInput}&key=${API_KEY}`;
+    API.googleSearch(URL)
+      .then((res) => {
+        console.log("*******", res);
+        setBookSearch(res.data.items);
+        //empty input
+        document.querySelector("#search").value = "";
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, [userInput]);
 
   function handleFormSubmit(event) {
     event.preventDefault();
     const userInput = document.querySelector("#search").value.trim();
-    setuserInput(userInput)
+    setuserInput(userInput);
+  }
+
+  function handleSaveBook(event) {
+    event.preventDefault();
+    for (let i = 0; i < bookSearch.length; i++) {
+      if (event.target.key === bookSearch[i].key) {
+        API.saveBook({
+          title: bookSearch[i].volumeInfo.title,
+          authors: bookSearch[i].volumeInfo.authors,
+          link: bookSearch[i].volumeInfo.infoLink,
+          description: bookSearch[i].volumeInfo.description,
+          image: bookSearch[i].volumeInfo.imageLinks,
+          googleId: bookSearch[i].id,
+        })
+          .then((res) => {
+            console.log("The book has been saved!");
+          })
+          .catch((err) => console.log(err));
+      }
+    }
   }
 
   const renderCards = () => {
     let mappedSearch = null;
     if (bookSearch.length > 0) {
       mappedSearch = bookSearch.map((search) => {
-        console.log(search.volumeInfo.authors)
+        console.log(search.volumeInfo.authors);
         return (
-          <Card
-            title={search.volumeInfo.title}
-            author={search.volumeInfo.authors}
-            link={search.volumeInfo.infoLink}
-            description={search.volumeInfo.description}
-            image={search.volumeInfo.imageLinks}
-           key={search.id}
-          />
+          <>
+            <Card
+              title={search.volumeInfo.title}
+              author={search.volumeInfo.authors}
+              link={search.volumeInfo.infoLink}
+              description={search.volumeInfo.description}
+              image={search.volumeInfo.imageLinks}
+              key={search.id}
+              googleId={search.id}
+              handleSaveBook={handleSaveBook}
+            />
+            {/* <button type="Save" onClick={handleSaveBook}>
+              Submit
+            </button> */}
+          </>
         );
       });
     }
