@@ -35,9 +35,9 @@ export default function Search() {
   }
 
   function handleSaveBook(id) {
-       for (let i = 0; i < bookSearch.length; i++) {
+    for (let i = 0; i < bookSearch.length; i++) {
       if (id === bookSearch[i].id) {
-        console.log( bookSearch[i].id)
+        console.log(bookSearch[i].id);
         API.saveBook({
           title: bookSearch[i].volumeInfo.title,
           authors: bookSearch[i].volumeInfo.authors,
@@ -46,7 +46,8 @@ export default function Search() {
           image: bookSearch[i].volumeInfo.imageLinks,
           googleId: bookSearch[i].id,
         })
-          .then(() => {console.log("The book has been saved!");
+          .then(() => {
+            console.log("The book has been saved!");
           })
           .catch((err) => console.log(err));
       }
@@ -70,7 +71,7 @@ export default function Search() {
               googleId={search.id}
               handleSaveBook={handleSaveBook}
             />
-                  </>
+          </>
         );
       });
     }
@@ -80,16 +81,24 @@ export default function Search() {
 
   return (
     <>
-      <form>
+      <div className="container container-fluid bg-dark text-white p-3 mb-2 ">
         <h3>Search For a Book</h3>
-        <input type="text" id="search" />
-        <button type="submit" onClick={handleFormSubmit}>
+        <div className="input-group mb-3">
+  <input type="text"  id="search" className="form-control" aria-label="Enter the name of the book"/>
+  <div className="input-group-append">
+    <span  onClick={handleFormSubmit} className=" btn btn-outline-secondary btn-link">Submit</span>
+  </div>
+</div>
+        {/* <input type="text" id="search" />
+        <button type="submit" onClick={handleFormSubmit} className=" btn btn-outline-secondary ">
           Submit
-        </button>
-      </form>
-
-      <h3>Results</h3>
-      <div>{renderCards()}</div>
+        </button> */}
+      </div>
+      <br />
+      <div className="container container-fluid">
+        <h3>Results:</h3>
+        <div>{renderCards()}</div>
+      </div>
     </>
   );
 }

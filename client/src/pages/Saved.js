@@ -31,7 +31,7 @@ function Saved() {
   }
 
   return (
-    <div>
+    <div className="container container-fluid">
       {books.length ? (
         <div>
           <h3>Saved Books:</h3>

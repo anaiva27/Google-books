@@ -7,7 +7,8 @@ const Card = (props) => {
       <div className="card mt-4">
         <div className="card-body">
           <div>{props.title}</div>
-          <button
+
+                 <button
             type="Save"
             onClick={() => props.handleSaveBook(props.googleId)}
           >
