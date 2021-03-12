@@ -6,16 +6,24 @@ const Card = (props) => {
       <div className="card mt-4">
         <div className="card-body">
           <div>{props.title}</div>
-          <button type="Save" onClick={()=>props.handleSaveBook(props.googleId)}>
-              Save
-            </button>
+          <button
+            type="Save"
+            onClick={() => props.handleSaveBook(props.googleId)}
+          >
+            Save
+          </button>
+          <button
+            type="delete"
+            onClick={() => props.handleDeleteBook(props.googleId)}
+          >
+            Delete
+          </button>
           <div>{props.author}</div>
           {/* <div>
             {props.author.map((author) => (
               <span> {author}, </span>
             ))}
           </div> */}
-            {/* <div className="hidden">{props.googleId}</div> */}
           <div>
             <a href={props.link} target="_blank" rel="noreferrer">
               View
@@ -23,11 +31,8 @@ const Card = (props) => {
           </div>
           <div>{props.description}</div>
           <img
-            src={
-              props.image
-                ? `${props.image.smallThumbnail}`
-                : "https://books.google.com/googlebooks/images/no_cover_thumb.gif"
-            }
+            alt="book thumbnail"
+            src={props.image ? `${props.image.smallThumbnail}` : ""}
           />
         </div>
       </div>

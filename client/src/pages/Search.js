@@ -46,8 +46,7 @@ export default function Search() {
           image: bookSearch[i].volumeInfo.imageLinks,
           googleId: bookSearch[i].id,
         })
-          .then((res) => {
-            console.log("The book has been saved!");
+          .then(() => {console.log("The book has been saved!");
           })
           .catch((err) => console.log(err));
       }
@@ -71,10 +70,7 @@ export default function Search() {
               googleId={search.id}
               handleSaveBook={handleSaveBook}
             />
-            {/* <button type="Save" id={search.id} onClick={handleSaveBook}>
-              Submit
-            </button> */}
-          </>
+                  </>
         );
       });
     }
