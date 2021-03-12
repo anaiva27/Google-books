@@ -20,6 +20,8 @@ function Saved() {
   function handleDeleteBook(id) {
     for (let i = 0; i < books.length; i++) {
       if (id === books[i]._id) {
+          console.log(books)
+          console.log( books[i]._id)
         API.deleteBook(books[i]._id)
           .then((res) => showSaved())
           .catch((err) => console.log(err));
