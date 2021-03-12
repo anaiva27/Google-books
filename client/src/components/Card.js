@@ -1,6 +1,7 @@
 import React from "react";
 
 const Card = (props) => {
+  console.log(props)
   return (
     <div>
       <div className="card mt-4">

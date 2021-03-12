@@ -18,6 +18,7 @@ function Saved() {
   }
 
   function handleDeleteBook(id) {
+      console.log(id)
     for (let i = 0; i < books.length; i++) {
       if (id === books[i]._id) {
           console.log(books)
@@ -43,7 +44,7 @@ function Saved() {
                 description={book.description}
                 image={book.image}
                 key={book.id}
-                googleId={book.id}
+                googleId={book._id}
                 handleDeleteBook={handleDeleteBook}
               />
             );
