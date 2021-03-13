@@ -1,20 +1,9 @@
-import React from 'react'
-
 const DeleteBtn = (props) => {
-    return (
-       <button
-            type="delete"
-            // onClick={() => props.handleDeleteBook(props.googleId)
-            {...props}
-            
-          >
-            Delete
-          </button>
-    )
-}
+  return (
+    <button type="delete" className="btn btn-sm btn-outline-dark" {...props}>
+      Delete
+    </button>
+  );
+};
 
-export default DeleteBtn
- 
- 
-
-           
+export default DeleteBtn;

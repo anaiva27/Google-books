@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import API from "../utils/API";
 import Card from "../components/Card";
+import SaveBtn from "../components/SaveBtn";
 // require('dotenv').config();
 // import env from "react-dotenv";
 
@@ -62,16 +63,21 @@ export default function Search() {
         console.log(search.volumeInfo.authors);
         return (
           <>
-            <Card
+           <Card
               title={search.volumeInfo.title}
               author={search.volumeInfo.authors}
-              link={search.volumeInfo.infoLink}
               description={search.volumeInfo.description}
               image={search.volumeInfo.imageLinks}
               key={search.id}
               googleId={search.id}
-              handleSaveBook={handleSaveBook}
             />
+            <button className="btn btn-sm btn-outline-dark">
+              <a href={search.volumeInfo.infoLink} target="_blank">
+                View
+              </a>
+            </button>
+            <SaveBtn onClick={() => handleSaveBook(search.id)} />
+           <br/>
           </>
         );
       });

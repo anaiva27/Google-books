@@ -8,11 +8,11 @@ function Saved() {
 
   // get saved books from DB
   useEffect(() => {
-      API.getBooks()
-        .then((res) => {
-          setSavedBooks(res.data);
-        })
-        .catch((err) => console.log(err));
+    API.getBooks()
+      .then((res) => {
+        setSavedBooks(res.data);
+      })
+      .catch((err) => console.log(err));
   }, [savedBooks]);
 
   // delete selected book by id
@@ -20,13 +20,13 @@ function Saved() {
     console.log(id);
     for (let i = 0; i < savedBooks.length; i++) {
       if (id === savedBooks[i]._id) {
-        API.deleteBook(savedBooks[i]._id)
-          .then(
-            API.getBooks()
+        API.deleteBook(savedBooks[i]._id).then(
+          API.getBooks()
             .then((res) => {
               setSavedBooks(res.data);
-             } )
-          .catch((err) => console.log(err)));
+            })
+            .catch((err) => console.log(err))
+        );
       }
     }
   }
@@ -40,20 +40,21 @@ function Saved() {
           <h2 className="mt-3">Your book selection:</h2>
           {savedBooks.map((savedBooks) => {
             return (
-                <>
-              <Card
-                title={savedBooks.title}
-                author={savedBooks.authors}
-                link={savedBooks.link}
-                description={savedBooks.description}
-                image={savedBooks.image}
-                key={savedBooks.id}
-                googleId={savedBooks._id}
-                handleDeleteBook={handleDeleteBook}
-             />
-              <DeleteBtn onClick={() => handleDeleteBook(savedBooks._id)}/>
-                  {/* </Card> */}
-                  </>
+              <>
+               <Card
+                  title={savedBooks.title}
+                  author={savedBooks.authors}
+                  description={savedBooks.description}
+                  image={savedBooks.image}
+                  key={savedBooks.id}
+                  googleId={savedBooks._id}
+                />
+               <button className="btn btn-sm btn-outline-dark"> <a href={savedBooks.link} target="_blank">
+              View
+            </a></button>
+                <DeleteBtn onClick={() => handleDeleteBook(savedBooks._id)} />
+               <br/>
+              </>
             );
           })}
         </div>
