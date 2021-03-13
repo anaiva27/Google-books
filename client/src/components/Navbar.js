@@ -8,7 +8,6 @@ function Navbar() {
         <Link to="/search">Search</Link>
       </button>
       <button className="nav-item btn btn-outline-secondary mb-0 mr-3">
-       
         <Link to="/saved">Saved</Link>
       </button>
     </nav>

@@ -3,55 +3,55 @@ import Card from "../components/Card";
 import API from "../utils/API";
 
 function Saved() {
-  const [books, setBooks] = useState([]);
+  const [savedBooks, setSavedBooks] = useState([]);
 
+  // get saved books from DB
   useEffect(() => {
-    showSaved();
-  }, []);
+      API.getBooks()
+        .then((res) => {
+          setSavedBooks(res.data);
+        })
+        .catch((err) => console.log(err));
+  }, [savedBooks]);
 
-  function showSaved() {
-    API.getBooks()
-      .then((res) => {
-        setBooks(res.data);
-      })
-      .catch((err) => console.log(err));
-  }
-
+  // delete selected book by id
   function handleDeleteBook(id) {
-      console.log(id)
-    for (let i = 0; i < books.length; i++) {
-      if (id === books[i]._id) {
-          console.log(books)
-          console.log( books[i]._id)
-        API.deleteBook(books[i]._id)
-          .then((res) => showSaved())
-          .catch((err) => console.log(err));
+    console.log(id);
+    for (let i = 0; i < savedBooks.length; i++) {
+      if (id === savedBooks[i]._id) {
+        API.deleteBook(savedBooks[i]._id)
+          .then(
+            API.getBooks()
+            .then((res) => {
+              setSavedBooks(res.data);
+             } )
+          .catch((err) => console.log(err)));
       }
     }
   }
 
   return (
     <div className="container container-fluid">
-      {books.length ? (
+      {!savedBooks.length ? (
+        <h1>Your saved books will appear down below:</h1>
+      ) : (
         <div>
-          <h3>Saved Books:</h3>
-          {books.map((book) => {
+          <h2 className="mt-3">Your book selection:</h2>
+          {savedBooks.map((savedBooks) => {
             return (
               <Card
-                title={book.title}
-                author={book.authors}
-                link={book.link}
-                description={book.description}
-                image={book.image}
-                key={book.id}
-                googleId={book._id}
+                title={savedBooks.title}
+                author={savedBooks.authors}
+                link={savedBooks.link}
+                description={savedBooks.description}
+                image={savedBooks.image}
+                key={savedBooks.id}
+                googleId={savedBooks._id}
                 handleDeleteBook={handleDeleteBook}
               />
             );
           })}
         </div>
-      ) : (
-        <h3>Saved Books:</h3>
       )}
     </div>
   );
