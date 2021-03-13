@@ -49,7 +49,6 @@ function Saved() {
                   googleId={savedBooks._id}
                   link={savedBooks.link}
                   deleteFunc={handleDeleteBook}
-
                 />
                 <br />
               </>

@@ -68,6 +68,7 @@ export default function Search() {
               author={search.volumeInfo.authors}
               description={search.volumeInfo.description}
               image={search.volumeInfo.imageLinks}
+              key={search.id}
               googleId={search.id}
               link={search.volumeInfo.infoLink}
               saveFunc={handleSaveBook}
