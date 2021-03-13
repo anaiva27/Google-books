@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
 import API from "../utils/API";
 import Card from "../components/Card";
+require('dotenv').config();
 
 export default function Search() {
   //API Key HIDE IN PROCESS.ENV???
-  const API_KEY = "AIzaSyDEqWOaZeHGCKfBxPOsQpRE5nwMILRZeIE";
+  const SAFE_API_KEY = process.env.REACT_APP_API_KEY;
 
   const [bookSearch, setBookSearch] = useState([]);
   const [userInput, setuserInput] = useState([]);
 
   // getting books from google api
   useEffect(() => {
-    let URL = `https://www.googleapis.com/books/v1/volumes?q=${userInput}&key=${API_KEY}`;
+    let URL = `https://www.googleapis.com/books/v1/volumes?q=${userInput}&key=${SAFE_API_KEY}`;
     API.googleSearch(URL)
       .then((res) => {
         setBookSearch(res.data.items);
