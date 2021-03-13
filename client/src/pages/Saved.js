@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Card from "../components/Card";
-import DeleteBtn from "../components/DeleteBtn";
+// import DeleteBtn from "../components/DeleteBtn";
 import API from "../utils/API";
 
 function Saved() {
@@ -32,7 +32,7 @@ function Saved() {
   }
 
   return (
-    <div className="container container-fluid">
+    <div className="container container-fluid" id="saved">
       {!savedBooks.length ? (
         <h1>Your saved books will appear down below:</h1>
       ) : (
@@ -41,19 +41,17 @@ function Saved() {
           {savedBooks.map((savedBooks) => {
             return (
               <>
-               <Card
+                <Card
                   title={savedBooks.title}
                   author={savedBooks.authors}
                   description={savedBooks.description}
                   image={savedBooks.image}
-                  key={savedBooks.id}
                   googleId={savedBooks._id}
+                  link={savedBooks.link}
+                  deleteFunc={handleDeleteBook}
+
                 />
-               <button className="btn btn-sm btn-outline-dark"> <a href={savedBooks.link} target="_blank">
-              View
-            </a></button>
-                <DeleteBtn onClick={() => handleDeleteBook(savedBooks._id)} />
-               <br/>
+                <br />
               </>
             );
           })}
