@@ -1,12 +1,12 @@
 import React from "react";
+// import DeteleBtn from "./DeleteBtn"
 
 const Card = (props) => {
-  console.log(props)
   return (
     <div>
       <div className="card mt-4">
         <div className="card-body">
-          <div>{props.title}</div>
+          <h3>{props.title}</h3>
 
                  <button
             type="Save"
@@ -14,12 +14,14 @@ const Card = (props) => {
           >
             Save
           </button>
-          <button
+          {/* <button
             type="delete"
             onClick={() => props.handleDeleteBook(props.googleId)}
           >
             Delete
           </button>
+           */}
+           {/* <DeteleBtn onClick={() => props.handleDeleteBook(props.googleId)}/> */}
           <div>{props.author}</div>
           {/* <div>
             {props.author.map((author) => (

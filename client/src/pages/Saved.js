@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Card from "../components/Card";
+import DeleteBtn from "../components/DeleteBtn";
 import API from "../utils/API";
 
 function Saved() {
@@ -39,6 +40,7 @@ function Saved() {
           <h2 className="mt-3">Your book selection:</h2>
           {savedBooks.map((savedBooks) => {
             return (
+                <>
               <Card
                 title={savedBooks.title}
                 author={savedBooks.authors}
@@ -48,7 +50,10 @@ function Saved() {
                 key={savedBooks.id}
                 googleId={savedBooks._id}
                 handleDeleteBook={handleDeleteBook}
-              />
+             />
+              <DeleteBtn onClick={() => handleDeleteBook(savedBooks._id)}/>
+                  {/* </Card> */}
+                  </>
             );
           })}
         </div>
