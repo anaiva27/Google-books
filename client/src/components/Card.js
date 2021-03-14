@@ -38,7 +38,7 @@ const Card = (props) => {
 
   
   return (
-    <div key={props.googleId}>
+    <div>
       <div className="card mt-4">
         <div className="card-body">
 

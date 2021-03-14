@@ -13,8 +13,14 @@ export default function Search() {
   const [bookSearch, setBookSearch] = useState([]);
   const [userInput, setuserInput] = useState([]);
 
+
+ function handleFormSubmit(event) {
+    event.preventDefault();
+    const userInput = document.getElementById("search").value.trim();
+    setuserInput(userInput);
+
   // getting books from google api
-  useEffect(() => {
+  // useEffect(() => {
     let URL = `https://www.googleapis.com/books/v1/volumes?q=${userInput}&key=${REACT_APP_API_KEY}`;
     API.googleSearch(URL)
       .then((res) => {
@@ -25,27 +31,26 @@ export default function Search() {
       .catch((err) => {
         console.log(err);
       });
-  }, [userInput]);
+  // }, [userInput]);
 
   // get book name from user's input
-  function handleFormSubmit(event) {
-    event.preventDefault();
-    const userInput = document.getElementById("search").value.trim();
-    setuserInput(userInput);
+ 
   }
 
   // save a book into booksearch array
-  function handleSaveBook(id) {
-    for (let i = 0; i < bookSearch.length; i++) {
-      if (id === bookSearch[i].id) {
-        console.log(bookSearch[i].id);
+ async function handleSaveBook(id) {
+    for await (let book of bookSearch) {
+      if (id ===book.id) {
+        console.log("TITLETITLE", book.volumeInfo.title)
+    
+        
         API.saveBook({
-          title: bookSearch[i].volumeInfo.title,
-          authors: bookSearch[i].volumeInfo.authors,
-          link: bookSearch[i].volumeInfo.infoLink,
-          description: bookSearch[i].volumeInfo.description,
-          image: bookSearch[i].volumeInfo.imageLinks,
-          googleId: bookSearch[i].id,
+          title:book.volumeInfo.title,
+          authors:book.volumeInfo.authors,
+          link:book.volumeInfo.infoLink,
+          description:book.volumeInfo.description,
+          image:book.volumeInfo.imageLinks,
+          googleId:book.id,
         })
           .then(() => {
             alert("The book has been saved!");
@@ -57,12 +62,12 @@ export default function Search() {
 
   // display cards with search results
   const renderCards = () => {
-    let mappedSearch = null;
+    let mappedSearch = null; 
     if (bookSearch.length > 0) {
       mappedSearch = bookSearch.map((search) => {
-        console.log(search.volumeInfo.authors);
+        // console.log(search.volumeInfo.authors);
         return (
-          <>
+ 
            <Card
               title={search.volumeInfo.title}
               author={search.volumeInfo.authors}
@@ -73,8 +78,7 @@ export default function Search() {
               link={search.volumeInfo.infoLink}
               saveFunc={handleSaveBook}
             />
-           <br/>
-          </>
+   
         );
       });
     }
